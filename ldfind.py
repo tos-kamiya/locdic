@@ -1,17 +1,14 @@
 #!/usr/bin/python
 #coding: utf-8
 
-import os
 import sys
 
 from engine import Searcher
-
-programDir = os.path.split(__file__)[0]
-dataDir = os.path.join(programDir, "data")
+from config import dataDir, ignoreFiles
 
 usage = """
 usage: ldfind <word> [OPTIONS...]
-  searchs word from text files in ./data directory.
+  searches word from text files in ./data directory.
 options
   -#: max mismatch count. 
   -c: counts the matched lines, instead of showing the lines.
@@ -20,7 +17,14 @@ options
 """[1:-1]
 
 def main():
-    searcher = Searcher(dataDir)
+    searcher = Searcher(dataDir, ignoreFiles)
+
+    if not searcher.get_data_files():
+        sys.exit("""
+No files in ./data directory.
+(Installation is not completed. Put some utf-8 text files 
+in ./data directory.)
+"""[1:-1])
     
     opts, args = [], []
     for a in sys.argv[1:]:
