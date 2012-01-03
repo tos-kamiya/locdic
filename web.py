@@ -5,8 +5,10 @@ import subprocess
 import threading
 
 import bottle
-from bottle import Bottle, run, template, TEMPLATE_PATH
-from bottle import request
+print map(int, bottle.__version__.split(".")) >= [0, 10, 0]
+
+from bottle import run, template, TEMPLATE_PATH
+from bottle import route, request, static_file
 
 from engine import Searcher
 from config import dataDir, ignoreFiles, moduleDir
@@ -16,14 +18,16 @@ TEMPLATE_PATH.append(templateDir)
 
 searcher = Searcher(dataDir, ignoreFiles)
 
-app = Bottle()
+@route('/static/<filename:path>')
+def send_static(filename):
+    return static_file(filename, root=os.path.join(moduleDir, "static"))
 
-@app.route('/', method='get')
+@route('/', method='get')
 def index_get():
     tbl = dict((k, []) for k in searcher.get_data_files())
     return template('index', result_table=tbl, query_string=None)
 
-@app.route('/', method='post')
+@route('/', method='post')
 def index_post():
     query_string = request.forms.get('query')
     
@@ -73,7 +77,7 @@ in ./data directory.)
     
     bottle.debug(True)
     try:
-        run(app, host='localhost', port=8081)
+        run(host='localhost', port=8081)
     except IOError:
         sys.stderr.write("warning: port is already used (locdic/web.py already running?)\n")
 
