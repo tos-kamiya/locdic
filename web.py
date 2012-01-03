@@ -5,7 +5,7 @@ import subprocess
 import threading
 
 import bottle
-print map(int, bottle.__version__.split(".")) >= [0, 10, 0]
+assert map(int, bottle.__version__.split(".")) >= [0, 10, 0]
 
 from bottle import run, template, TEMPLATE_PATH
 from bottle import route, request, static_file
@@ -25,20 +25,34 @@ def send_static(filename):
 @route('/', method='get')
 def index_get():
     tbl = dict((k, []) for k in searcher.get_data_files())
-    return template('index', result_table=tbl, query_string=None)
+    return template('index', result_table=tbl, query_string=None,
+            option_wholeword=None, option_approximate=None, option_ignorecase=1)
 
 @route('/', method='post')
 def index_post():
-    query_string = request.forms.get('query')
+    query_string = request.forms.get('query', '')
+    wholeword = 1 if request.forms.get('wholeword', 'off') == 'on' else 0
+    approximate = int(request.forms.get('approximate', '0'))
+    ignorecase = 1 if request.forms.get('ignorecase', 'off') == 'on' else 0
+    if not query_string:
+        tbl = dict((k, []) for k in searcher.get_data_files())
+        return template('index', result_table=tbl, query_string=None,
+                option_wholeword=wholeword, option_approximate=approximate, option_ignorecase=ignorecase)
     
-    d = searcher.search(query_string)
+    options = []
+    if wholeword: options.append("-w")
+    if approximate: options.append("-%d" % approximate)
+    if ignorecase: options.append("-i")
+    
+    d = searcher.search(query_string, options)
     result_table = {}
     for k, v in d.iteritems():
         result_table[k.decode('utf-8')] = \
                 [L.decode('utf-8') for L in filter(None, v.split('\n'))]
     
     return template('index', 
-            result_table=result_table, query_string=query_string)
+            result_table=result_table, query_string=query_string, 
+            option_wholeword=wholeword, option_approximate=approximate, option_ignorecase=ignorecase)
 
 usage = """
 usage: web [OPTIONS...]
