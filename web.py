@@ -20,7 +20,8 @@ app = Bottle()
 
 @app.route('/', method='get')
 def index_get():
-    return template('index', result_table=None, query_string=None)
+    tbl = dict((k, []) for k in searcher.get_data_files())
+    return template('index', result_table=tbl, query_string=None)
 
 @app.route('/', method='post')
 def index_post():
