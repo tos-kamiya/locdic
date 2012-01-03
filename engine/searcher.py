@@ -2,22 +2,28 @@
 
 import os
 import subprocess
+import glob
 
 class Searcher:
     def __init__(self, dataDir=None, ignoreFiles=None):
         self.dataDir = None
         self.dataFiles = None
         if dataDir:
-            self.set_data_dir(dataDir)
+            self.set_data_dir(dataDir, ignoreFiles)
     
     def set_data_dir(self, dataDir, ignoreFiles=None):
         assert os.path.isdir(dataDir)
-        ignoreFiles = set(ignoreFiles) if ignoreFiles else ()
+        ignoreFiles = list(ignoreFiles)
         self.dataDir = dataDir
         
         dataFiles = [f for f in os.listdir(dataDir) \
                 if os.path.isfile(os.path.join(dataDir, f))]
-        self.dataFiles = filter(lambda f: f not in ignoreFiles, dataFiles)
+        ifs = []
+        for i in ignoreFiles:
+            ifs.extend(glob.glob(os.path.join(dataDir, i)))
+        ifs = [os.path.split(p)[1] for p in ifs]
+        self.ignoreFiles = sorted(set(ifs))
+        self.dataFiles = filter(lambda f: f not in self.ignoreFiles, dataFiles)
 
     def get_data_files(self):
         if self.dataFiles is None:

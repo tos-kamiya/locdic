@@ -1,6 +1,8 @@
 #coding: utf-8
 
 import os
+import subprocess
+import threading
 
 import bottle
 from bottle import Bottle, run, template, TEMPLATE_PATH
@@ -66,9 +68,13 @@ No files in ./data directory.
 in ./data directory.)
 """[1:-1])
 
+    threading.Timer(0.1, lambda: subprocess.call([browserCommand, "http://localhost:%d" % port])).start()
+    
     bottle.debug(True)
-    run(app, host='localhost', port=8081)
-    os.system("%s http://localhost:%d" % (browserCommand, port))
+    try:
+        run(app, host='localhost', port=8081)
+    except IOError:
+        sys.stderr.write("warning: port is already used (locdic/web.py already running?)\n")
 
 if __name__ == '__main__':
     main()

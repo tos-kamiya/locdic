@@ -1,10 +1,9 @@
 #coding: utf-8
 
 import os
-import subprocess
 
 moduleDir = os.path.split(__file__)[0]
-ignoreFiles = [ 'readme' ]
+ignoreFiles = [ 'readme', '*~', '*.py', '*.pyc', '*.original' ]
 
 def locate_data_directory():
     dataDirName = "data"
