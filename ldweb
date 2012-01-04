@@ -106,7 +106,7 @@ def main():
     
     bottle.debug(True)
     try:
-        run(host='localhost', port=8081)
+        run(host='localhost', port=port)
     except IOError:
         sys.stderr.write("warning: port %d is already used (locdic/web.py already running?)\n" % port)
 
