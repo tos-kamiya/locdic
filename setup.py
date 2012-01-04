@@ -5,6 +5,16 @@
 
 from distutils.core import setup
 
+import sys
+
+sys.stdout.write('\n%s\n\n' % """
+---------------------------------------------------------------------------
+Warning: This setup.py really does not install locdic on your PC.
+In order to install locdic to your PC, you have to manually copy 
+the distribution files and run ldweb.py or ldfind.py. 
+---------------------------------------------------------------------------
+"""[1:-1])
+
 setup(
     name='locdic',
     version='0.1.0',
