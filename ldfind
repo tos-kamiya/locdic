@@ -5,6 +5,7 @@ import sys
 
 from engine import Searcher
 from config import dataDir, ignoreFiles
+from config import version
 
 usage = """
 usage: ldfind <word> [OPTIONS...]
@@ -14,6 +15,7 @@ options
   -c: counts the matched lines, instead of showing the lines.
   -i: ignores case.
   -w: word search.
+  --version: shows version.
 """[1:-1]
 
 def main():
@@ -31,6 +33,9 @@ in ./data directory.)
         if a.startswith("-"):
             if a in ("-h", "--help"):
                 sys.stdout.write("%s\n" % usage)
+                sys.exit(0)
+            elif a == "--version":
+                sys.stdout.write("ldfind %s\n" % version)
                 sys.exit(0)
             opts.append(a)
         else:

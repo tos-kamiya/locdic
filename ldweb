@@ -13,6 +13,7 @@ from bottle import route, request, static_file
 
 from engine import Searcher
 from config import dataDir, ignoreFiles, moduleDir
+from config import version
 
 templateDir = os.path.join(moduleDir, "view")
 TEMPLATE_PATH.append(templateDir)
@@ -71,6 +72,7 @@ options
   -b <browser>: browser. default is %(browserCommand)s.
   -b -: don't invoke a browser.
   -p <portnum>: port number. default is %(port)d.
+  --version: shows version.
 """[1:-1]
 
 def main():
@@ -80,7 +82,7 @@ def main():
     port = 8081
     browserCommand = "firefox"
     
-    opts, args = getopt.gnu_getopt(sys.argv[1:], "b:p:h")
+    opts, args = getopt.gnu_getopt(sys.argv[1:], "b:p:h", [ "version" ])
     for k, v in opts:
         if k == "-h":
             sys.stdout.write("%s\n" % (usage % locals()))
@@ -91,6 +93,9 @@ def main():
             browserCommand = v
         elif k == "-p":
             port = int(v, 10)
+        elif k == "--version":
+            sys.stdout.write("ldweb %s\n" % version)
+            sys.exit(0)
         else:
             assert False
     
