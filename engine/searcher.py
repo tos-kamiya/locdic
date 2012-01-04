@@ -12,7 +12,8 @@ class Searcher:
             self.set_data_dir(dataDir, ignoreFiles)
     
     def set_data_dir(self, dataDir, ignoreFiles=None):
-        assert os.path.isdir(dataDir)
+        if not os.path.isdir(dataDir): return
+        
         ignoreFiles = list(ignoreFiles)
         self.dataDir = dataDir
         

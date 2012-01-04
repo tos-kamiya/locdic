@@ -24,6 +24,16 @@ def send_static(filename):
 
 @route('/', method='get')
 def index_get():
+    if not searcher.get_data_files():
+        title ="Installation Error"
+        text = """
+No files in directory "%(dataDir)s".
+Installation is not completed. 
+Put some utf-8 text files in directory "%(dataDir)s".
+"""[1:-1] % { 'dataDir' : dataDir }
+
+        return template('errormessage', title=title, text=text)
+    
     tbl = dict((k, []) for k in searcher.get_data_files())
     return template('index', result_table=tbl, query_string=None,
             option_wholeword=None, option_approximate=None, option_ignorecase=1)
@@ -58,6 +68,7 @@ usage = """
 usage: web [OPTIONS...]
 options
   -b <browser>: browser. default is %(browserCommand)s.
+  -b -: don't invoke a browser.
   -p <portnum>: port number. default is %(port)d.
 """[1:-1]
 
@@ -74,26 +85,24 @@ def main():
             sys.stdout.write("%s\n" % (usage % locals()))
             sys.exit(0)
         elif k == "-b":
+            if v == '-':
+                browserCommand = None
             browserCommand = v
         elif k == "-p":
             port = int(v, 10)
         else:
             assert False
     
-    if not searcher.get_data_files():
-        sys.exit("""
-No files in ./data directory.
-(Installation is not completed. Put some utf-8 text files 
-in ./data directory.)
-"""[1:-1])
-
-    threading.Timer(0.1, lambda: subprocess.call([browserCommand, "http://localhost:%d" % port])).start()
+    if browserCommand:
+        def invoke_browser(): 
+            subprocess.call([browserCommand, "http://localhost:%d" % port])
+        threading.Timer(0.1, invoke_browser).start()
     
     bottle.debug(True)
     try:
         run(host='localhost', port=8081)
     except IOError:
-        sys.stderr.write("warning: port is already used (locdic/web.py already running?)\n")
+        sys.stderr.write("warning: port %d is already used (locdic/web.py already running?)\n" % port)
 
 if __name__ == '__main__':
     main()
