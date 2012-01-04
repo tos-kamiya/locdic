@@ -12,8 +12,8 @@ from bottle import run, template, TEMPLATE_PATH
 from bottle import route, request, static_file
 
 from engine import Searcher
-from config import dataDir, ignoreFiles, moduleDir
-from config import version
+from _config import dataDir, ignoreFiles, moduleDir
+from _config import version
 
 templateDir = os.path.join(moduleDir, "view")
 TEMPLATE_PATH.append(templateDir)

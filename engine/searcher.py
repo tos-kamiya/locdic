@@ -14,7 +14,7 @@ class Searcher:
     def set_data_dir(self, dataDir, ignoreFiles=None):
         if not os.path.isdir(dataDir): return
         
-        ignoreFiles = list(ignoreFiles)
+        ignoreFiles = list(ignoreFiles) if ignoreFiles else []
         self.dataDir = dataDir
         
         dataFiles = [f for f in os.listdir(dataDir) \
@@ -33,7 +33,7 @@ class Searcher:
 
     def search(self, query, options=None):
         assert self.dataDir is not None
-        cmdLine = ["agrep", query]
+        cmdLine = ["tre-agrep", query]
         if options:
             cmdLine[1:1] = options
         d = {}

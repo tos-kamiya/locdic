@@ -4,8 +4,8 @@
 import sys
 
 from engine import Searcher
-from config import dataDir, ignoreFiles
-from config import version
+from _config import dataDir, ignoreFiles
+from _config import version
 
 usage = """
 usage: ldfind <word> [OPTIONS...]

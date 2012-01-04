@@ -3,7 +3,10 @@
 import os
 import subprocess
 
-r = subprocess.check_output(["nkf", "-u", "gene.txt"])
+r = subprocess.check_output(["iconv", 
+        "-c",
+        "-f", "CP932", "-t", "UTF-8",
+        "gene.txt"])
 lines = [L.rstrip() for L in r.split("\n")]
 
 with open("gene.utf8", "wb") as f:

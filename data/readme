@@ -1,10 +1,10 @@
-About this directory
+About data directory
 =========================
 
 This directory is a default place where dictionary 
 data files are put in.
 
-Copy utf-8 text files in this directory.
+Copy utf-8 text files into this directory.
 
 Helper script
 ================
