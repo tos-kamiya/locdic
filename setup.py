@@ -1,14 +1,9 @@
 #coding: utf-8
 
-import glob
-import os.path
+# This set-up script is a kind of dummy,
+# just checks dependencies and tells descriptions.
+
 from distutils.core import setup
-
-def glob_wo_dirs(w):
-    return [f for f in glob.glob(w) if not os.path.isdir(f)]
-
-def target_dir(relp):
-    return os.path.join("/usr/local/lib/locdic", relp)
 
 setup(
     name='locdic',
@@ -17,16 +12,6 @@ setup(
     author="Toshihiro Kamiya",
     author_email="kamiya@mbj.nifty.com",
     url="http://www.remics.org/",
-    data_files=[
-        (target_dir(''), glob_wo_dirs('*.py')),
-        (target_dir('engine'), glob_wo_dirs('engine/*.py')),
-        (target_dir('test'), glob_wo_dirs('test/*.py')),
-        (target_dir('data'), [ 'data/readme', 'data/import_gene.py' ]),
-        (target_dir(''), [ 'LICENSE', 'README' ]),
-        (target_dir('static'), glob_wo_dirs('static/*')),
-        (target_dir('static/images'), glob_wo_dirs('static/images/*')),
-        (target_dir('view'), glob_wo_dirs('view/*')),
-    ],
     requires=[
         "bottle (>=0.10)",
     ],
