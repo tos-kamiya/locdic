@@ -7,32 +7,35 @@ from distutils.core import setup
 import glob
 import os
 
-def noext(p): return os.path.splitext(p)[0]
+def glob_wo_dir(p):
+    return [f for f in glob.glob(p) if not os.path.isdir(f)]
 
 setup(
     name='locdic',
     version='0.1.0',
-    description="Off-line Dictionary Tool",
+    description="Off-line Dictionary / Dictionary Server Tool",
     author="Toshihiro Kamiya",
     author_email="kamiya@mbj.nifty.com",
-    url="http://www.remics.org/",
+    url="http://www.remics.org/locdic/",
     requires=[
         "bottle (>=0.10)", # LocDic uses a bottle 0.10 feature (url wildcard), which changed from 0.9
         "PyGtk",
         "pywebkitgtk",
     ],
-      
-    py_modules=[
-    ] + map(noext, glob.glob("locdic/*.py") + \
-            glob.glob("locdic/engine/*.py") + glob.glob("locdic/test/*.py")),
+    
     data_files=[
-        ('locdic/doc', [ 'LICENSE', 'README' ]),
-        ('locdic/data', [ "locdic/data/readme", 
-                "locdic/data/immport_gene.py", "locdic/data/import_wordnet.py", 
-                "locdic/data/wordnet.utf8" ]),
-        ('locdic/static', glob.glob('locdic/static/*')),
-        ('locdic/static/images', glob.glob('locdic/static/images/*')),
-        ('locdic/view', glob.glob('locdic/view/*')),
+        ('bin', [ 'bin/ldfind', 'bin/ldweb' ]),
+        ('bin/locdic', glob.glob("bin/locdic/*.py")),
+        ('bin/locdic/engine', glob.glob("bin/locdic/engine/*.py")),
+        ('bin/locdic/test', glob.glob("bin/locdic/test/*.py")),
+        ('bin/locdic/doc', [ 'bin/locdic/doc/LICENSE', 'bin/locdic/doc/README', 
+                'bin/locdic/doc/INSTALLATION' ]),
+        ('bin/locdic/data', [ "bin/locdic/data/readme", 
+                "bin/locdic/data/import_gene.py", "bin/locdic/data/import_wordnet.py", 
+                "bin/locdic/data/wordnet.utf8" ]),
+        ('bin/locdic/static', glob_wo_dir('bin/locdic/static/*')),
+        ('bin/locdic/static/images', glob_wo_dir('bin/locdic/static/images/*')),
+        ('bin/locdic/view', glob_wo_dir('bin/locdic/view/*')),
     ],
       
     license="MIT license / other",

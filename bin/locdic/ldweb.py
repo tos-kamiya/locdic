@@ -20,7 +20,7 @@ TEMPLATE_PATH.append(templateDir)
 
 searcher = Searcher(dataDir, ignoreFiles)
 
-options = {}
+initialOptions = {}
 
 @route('/static/<filename:path>')
 def send_static(filename):
@@ -40,14 +40,16 @@ Put some utf-8 text files in directory "%(dataDir)s".
     
     tbl = dict((k, []) for k in searcher.get_data_files())
     return template('index', result_table=tbl, query_string=None,
-            option_wholeword=None, option_approximate=None, option_ignorecase=1)
+            option_wholeword=initialOptions.get('wholeword'), 
+            option_approximate=initialOptions.get('approximate'), 
+            option_ignorecase=initialOptions.get('ignorecase', True))
 
 @route('/', method='post')
 def index_post():
     query_string = request.forms.get('query', '')
-    wholeword = 1 if request.forms.get('wholeword', 'off') == 'on' else 0
+    wholeword = request.forms.get('wholeword', 'off') == 'on'
     approximate = int(request.forms.get('approximate', '0'))
-    ignorecase = 1 if request.forms.get('ignorecase', 'off') == 'on' else 0
+    ignorecase = request.forms.get('ignorecase', 'off') == 'on'
     if not query_string:
         tbl = dict((k, []) for k in searcher.get_data_files())
         return template('index', result_table=tbl, query_string=None,
@@ -117,6 +119,10 @@ def main():
             optionWholeWordMatch = True
         else:
             assert False
+    
+    if optionWholeWordMatch: initialOptions['wholeword'] = True
+    if optionIgnoreCase: initialOptions['ignorecase'] = True
+    if optionMismatch: initialOptions['approximate'] = optionMismatch
     
     bottle.debug(True)
     

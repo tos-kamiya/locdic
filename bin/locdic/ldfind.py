@@ -19,6 +19,10 @@ options
 """[1:-1]
 
 def main():
+    if len(sys.argv) == 1:
+        sys.stdout.write("%s\n" % usage)
+        sys.exit(0)
+        
     searcher = Searcher(dataDir, ignoreFiles)
 
     if not searcher.get_data_files():

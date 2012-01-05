@@ -1,7 +1,7 @@
 %if not query_string: query_string = ""
-%if not option_wholeword: option_wholeword = 0
-%if not option_approximate: option_approximate = 0
-%if not option_ignorecase: option_ignorecase = 0
+%option_wholeword = 1 if option_wholeword else 0
+%if option_approximate is None: option_approximate = 0
+%option_ignorecase = 1 if option_ignorecase else 0
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
