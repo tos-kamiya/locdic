@@ -38,12 +38,13 @@ setup(
         ('bin/locdic/view', glob_wo_dir('bin/locdic/view/*')),
     ],
       
-    license="MIT license / other",
+    license="MIT license / BSD license",
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Environment :: Console",
         "Environment :: Web Environment",
         "Intended Audience :: End Users/Desktop",
+        "License :: OSI Approved :: BSD License",
         "License :: OSI Approved :: MIT License",
         "Natural Language :: English",
         "Operating System :: POSIX :: Linux",

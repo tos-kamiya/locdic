@@ -1,3 +1,4 @@
+===============
 Installation
 ===============
 
@@ -18,4 +19,12 @@ To install into system directories, run setup.py::
 Then you'll find the above ldweb and ldfind are copied 
 into directory `/usr/local/bin` and also the other files 
 are copied to directories under `/usr/local/bin/locdic/` .
+So you can run Locdic just as follows:: 
 
+  $ldweb
+
+or::
+  
+  $ldfind
+
+Enjoy!

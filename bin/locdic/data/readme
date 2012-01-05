@@ -17,7 +17,7 @@ In case you want to use your own dictionary data with Locdic,
 make a directory under your home directory: `~/.locdic/data/`,
 then put the data in the directory.
 
-Such directory data file must satisfy the following:
+Such directory data file must satisfy the following conditions:
 
 - A utf-8 encoded text file.
 
@@ -51,4 +51,3 @@ import_gene.py
 Script `import_gene.py` is a import tool for gene95 English-Japanese
 dictionary data ( gene95 is available at 
 http://www.namazu.org/~tsuchiya/sdic/data/gene.html ).
-
