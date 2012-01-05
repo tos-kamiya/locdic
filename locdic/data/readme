@@ -1,0 +1,54 @@
+About data directory
+========================
+
+This directory includes a wordnet English dictionary,
+as one of the most practical and famous dictionary,
+which is suitable as a default dictionary and also
+a good sample to explain what locdic dictionary is.
+
+User dictionary 
+==================
+
+This `locdic/data` directory is a default data directory of
+Locdic. However, this directory is a system directory if
+you installed Locdic with setup.py.
+
+In case you want to use your own dictionary data with Locdic,
+make a directory under your home directory: `~/.locdic/data/`,
+then put the data in the directory.
+
+Such directory data file must satisfy the following:
+
+- A utf-8 encoded text file.
+
+- A word and its description are included in a line of the file.
+
+Data importing scripts
+==========================
+
+Scripts import_XXXX.py is a special import (convert) tool 
+for dictionary data XXXX. These scripts convert the dictionary 
+data of its own format into a utf-8 text file, in order to 
+make the data usable by Locdic.
+
+To use the scripts, download the dictionary data archive 
+and expand it in some directory, and type following command 
+at terminal::
+
+  $cd the/directory/where/the/archive/is/expanded
+  $python import_XXXX.py
+  
+import_wordnet.py
+---------------------
+
+Script `import_wornet.py` is a import tool for WordNet 3.0
+dictionary data. ( WordNet is available at 
+http://wordnet.princeton.edu/ ).
+
+import_gene.py
+-----------------
+
+Script `import_gene.py` is a import tool for gene95 English-Japanese
+dictionary data ( gene95 is available at 
+http://www.namazu.org/~tsuchiya/sdic/data/gene.html ).
+

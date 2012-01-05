@@ -4,16 +4,10 @@
 # just checks dependencies and tells descriptions.
 
 from distutils.core import setup
+import glob
+import os
 
-import sys
-
-sys.stdout.write('\n%s\n\n' % """
----------------------------------------------------------------------------
-Warning: This setup.py really does not install locdic on your PC.
-In order to install locdic to your PC, you have to manually copy 
-the distribution files and run ldweb.py or ldfind.py. 
----------------------------------------------------------------------------
-"""[1:-1])
+def noext(p): return os.path.splitext(p)[0]
 
 setup(
     name='locdic',
@@ -23,11 +17,25 @@ setup(
     author_email="kamiya@mbj.nifty.com",
     url="http://www.remics.org/",
     requires=[
-        "bottle (>=0.10)",
+        "bottle (>=0.10)", # LocDic uses a bottle 0.10 feature (url wildcard), which changed from 0.9
+        "PyGtk",
+        "pywebkitgtk",
     ],
       
-    license="LICENSE",
-    long_description="README",
+    py_modules=[
+    ] + map(noext, glob.glob("locdic/*.py") + \
+            glob.glob("locdic/engine/*.py") + glob.glob("locdic/test/*.py")),
+    data_files=[
+        ('locdic/doc', [ 'LICENSE', 'README' ]),
+        ('locdic/data', [ "locdic/data/readme", 
+                "locdic/data/immport_gene.py", "locdic/data/import_wordnet.py", 
+                "locdic/data/wordnet.utf8" ]),
+        ('locdic/static', glob.glob('locdic/static/*')),
+        ('locdic/static/images', glob.glob('locdic/static/images/*')),
+        ('locdic/view', glob.glob('locdic/view/*')),
+    ],
+      
+    license="MIT license / other",
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Environment :: Console",

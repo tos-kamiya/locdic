@@ -1,0 +1,54 @@
+Locdic License
+==================
+
+Locdic is distributed under MIT license.
+
+However, the dictionary data is *NOT* covered by this license,
+see `Dictionary data`_
+
+---
+
+| Copyright (c) 2011 Toshihiro Kamiya
+|
+| Permission is hereby granted, free of charge, to any person obtaining 
+| a copy of this software and associated documentation files (the "Software"), 
+| to deal in the Software without restriction, including without limitation 
+| the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+| and/or sell copies of the Software, and to permit persons to whom the 
+| Software is furnished to do so, subject to the following conditions:
+|
+| The above copyright notice and this permission notice shall be included 
+| in all copies or substantial portions of the Software.
+|
+| THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
+| OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+| FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
+| AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
+| LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+| OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN 
+| THE SOFTWARE.
+
+---
+
+Libraries and tools
+-----------------------
+
+Locdic notably depends on following libraries and tools:
+
+- bottle http://bottlepy.org/
+  (MIT license http://bottlepy.org/docs/stable/#license )
+
+- tre-agrep http://laurikari.net/tre/
+  (“2 clause” BSD-style license http://laurikari.net/tre/netbsd-takes-tre-in-the-c-library/ )
+
+- jQuery and jQuery Mobile http://jquery.org/
+  (MIT license http://jquery.org/license )
+
+Dictionary data
+------------------
+
+Locdic is shipped with a dictionary data, WordNet 3.0:
+
+- WordNet http://wordnet.princeton.edu/
+  (WordNet License http://wordnet.princeton.edu/wordnet/license/ 
+  Caution: it requires a permission for *commercial use* . )

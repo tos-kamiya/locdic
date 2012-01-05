@@ -1,0 +1,13 @@
+Locdic
+========
+
+Locdic is a dictionary tool, aims to make an off-line 
+dictionary, in both forms of a command-line tool ( `ldfind.py` ) 
+and a micro-web application ( `ldweb.py` ).
+
+Locdic can use a utf-8 text data as dictionary data. So 
+if you prepare such text files (e.g., ejdic-hand-utf8 for 
+English-Japanese dictionary), you can make your own dictionary.
+See `data/readme` for more information.
+
+http://www.remics.org/
