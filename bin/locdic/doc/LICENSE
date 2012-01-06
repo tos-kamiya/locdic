@@ -7,8 +7,8 @@ Locdic
 
 Locdic is distributed under MIT license.
 
-As for licenses of the libraries, tools, data that Locdic uses,
-see the next section.
+As for licenses of the libraries and data that are included
+in Locdic distribution, see the next section.
 
 ---
 
@@ -34,16 +34,10 @@ see the next section.
 
 ---
 
-Libraries and tools
------------------------
+Libraries
+-----------
 
-Locdic notably depends on following libraries and tools:
-
-- bottle http://bottlepy.org/
-  (MIT license - http://bottlepy.org/docs/stable/#license )
-
-- tre-agrep http://laurikari.net/tre/
-  (“2 clause” BSD-style license - http://laurikari.net/tre/netbsd-takes-tre-in-the-c-library/ )
+Locdic distribution includes stuffs of the following library.
 
 - jQuery and jQuery Mobile http://jquery.org/
   (MIT license - http://jquery.org/license )
@@ -51,7 +45,7 @@ Locdic notably depends on following libraries and tools:
 Dictionary data
 ------------------
 
-Locdic is shipped with a dictionary data, WordNet:
+Locdic distribution includes the following dictionary data.
 
 - WordNet 3.0 http://wordnet.princeton.edu/
   (BSD license - http://wordnet.princeton.edu/wordnet/license/ )

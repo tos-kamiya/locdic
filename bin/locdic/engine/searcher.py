@@ -3,6 +3,7 @@
 import os
 import subprocess
 import glob
+import sys
 
 class Searcher:
     def __init__(self, dataDir=None, ignoreFiles=None):
@@ -24,7 +25,7 @@ class Searcher:
             ifs.extend(glob.glob(os.path.join(dataDir, i)))
         ifs = [os.path.split(p)[1] for p in ifs]
         self.ignoreFiles = sorted(set(ifs))
-        self.dataFiles = filter(lambda f: f not in self.ignoreFiles, dataFiles)
+        self.dataFiles = [f for f in dataFiles if f not in self.ignoreFiles]
 
     def get_data_files(self):
         if self.dataFiles is None:
@@ -42,6 +43,8 @@ class Searcher:
             try:
                 r = subprocess.check_output(cmdLine + [p],
                         stderr=subprocess.STDOUT)
+                if sys.version_info.major >= 3:
+                    r = r.decode('utf-8')
                 d[f] = r
             except subprocess.CalledProcessError as e:
                 d[f] = ''

@@ -8,6 +8,11 @@ Locdic is shipped with a English dictionary data, namely
 Wordnet 3.0, so Locdic can be used as a dictionary out 
 of the box.
 
+`ldfind` is a command-line dictionary application.
+
+`ldweb` is a GUI dictionary application and also
+works as a web server.
+
 2. Locdic is a dictionary making tool.
 
 Locdic aims to make an off-line  dictionary, in both forms 

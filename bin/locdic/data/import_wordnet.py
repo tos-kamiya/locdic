@@ -10,9 +10,9 @@ wordnetFiles = glob.glob("data.*")
 if len(wordnetFiles) == 0:
     sys.exit("error: no file found")
 
-with open("wordnet.utf8", "wb") as outp:
+with open("wordnet.utf8", "w") as outp:
     for wf in wordnetFiles:
-        with open(wf, "rb") as inp:
+        with open(wf, "r") as inp:
             for li, L in enumerate(inp):
                 try:
                     L = L.rstrip()
@@ -22,7 +22,7 @@ with open("wordnet.utf8", "wb") as outp:
                     ss_type = fields[2]
                     countOfWords = int(fields[3], 16)
                     words = [fields[4 + i * 2] for i in range(countOfWords)]
-                    words = map(lambda s: s.replace('_', ' '), words)
+                    words = [s.replace('_', ' ') for s in words]
                     outp.write("%s\t%s %s\n" % (", ".join(words), ss_type, description))
                 except:
                     sys.exit("error: converting failure, file %s line %d" % (wf, li + 1))

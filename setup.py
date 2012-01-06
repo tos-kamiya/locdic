@@ -15,7 +15,7 @@ setup(
     author_email="kamiya@mbj.nifty.com",
     url="http://www.remics.org/locdic/",
     requires=[
-        "bottle (>=0.10)", # LocDic uses a bottle 0.10 feature (url wildcard), which changed from 0.9
+        "bottle",
         "PyGtk",
         "pywebkitgtk",
     ],

@@ -2,22 +2,22 @@
 Installation
 ===============
 
-To try without modifying system directories::
+To try Locdic without modifying system directories::
 
   $cd where/archive/is/expanded
   $bin/ldweb
 
 or::
   
-  $bin/ldfind
+  $bin/ldfind someword
   
 To install into system directories, run setup.py::
 
   $cd where/archive/is/expanded
   $sudo python setup.py
 
-Then you'll find the above ldweb and ldfind are copied 
-into directory `/usr/local/bin` and also the other files 
+Then you'll find the above `ldweb` and `ldfind` are copied 
+into directory `/usr/local/bin`.  Also the other files 
 are copied to directories under `/usr/local/bin/locdic/` .
 So you can run Locdic just as follows:: 
 

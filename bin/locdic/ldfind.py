@@ -51,7 +51,7 @@ in ./data directory.)
     d = searcher.search(args[0], options=(opts if opts else None))
     
     output = sys.stdout
-    for f, r in sorted(d.iteritems()):
+    for f, r in sorted(d.items()):
         output.write("%s:\n" % f)
         output.write("%s\n" % r)
 

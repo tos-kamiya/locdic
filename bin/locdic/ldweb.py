@@ -6,7 +6,7 @@ import time
 import threading
 
 import bottle
-assert map(int, bottle.__version__.split(".")[:2]) >= [0, 10]
+bottleVersion = tuple([int(s) for s in bottle.__version__.split(".")[:2]])
 
 from bottle import run, template, TEMPLATE_PATH
 from bottle import route, request, static_file
@@ -22,7 +22,9 @@ searcher = Searcher(dataDir, ignoreFiles)
 
 initialOptions = {}
 
-@route('/static/<filename:path>')
+pathPattern = "<filename:path>" if bottleVersion >= (0, 10) else ":filename#.+#"
+
+@route('/static/' + pathPattern)
 def send_static(filename):
     return static_file(filename, root=os.path.join(moduleDir, "static"))
 
@@ -62,7 +64,7 @@ def index_post():
     
     d = searcher.search(query_string, options)
     result_table = {}
-    for k, v in d.iteritems():
+    for k, v in d.items():
         result_table[k.decode('utf-8')] = \
                 [L.decode('utf-8') for L in filter(None, v.split('\n'))]
     
