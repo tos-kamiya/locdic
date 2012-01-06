@@ -73,7 +73,7 @@ def index_post():
             option_wholeword=wholeword, option_approximate=approximate, option_ignorecase=ignorecase)
 
 usage = """
-usage: ldweb [OPTIONS...]
+usage: web [OPTIONS...]
 options
   -b -: don't invoke a browser.
   -I: turns off ignore-case option.
@@ -111,7 +111,7 @@ def main():
         elif k == "-s":
             optionServerMode = True
         elif k == "--version":
-            sys.stdout.write("ldweb %s\n" % version)
+            sys.stdout.write("locdic.web %s\nsee http://www.remics.org/locdic/ for more information.\n" % version)
             sys.exit(0)
         elif k == "-i":
             optionIgnoreCase = True
@@ -134,7 +134,7 @@ def main():
     time.sleep(0.1) # waits server thread get ready.
     
     if not serverThread.is_alive():
-        message = "error: can't invoke a web server. (another locdic/ldweb.py is already running?, or port %d is used by the other program?)\n" % port
+        message = "error: can't invoke a web server. (another locdic/web.py is already running?, or port %d is used by the other program?)\n" % port
         try:
             import browserwindow
             browserwindow.error_dialog(message)

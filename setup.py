@@ -19,22 +19,31 @@ setup(
         "PyGtk",
         "pywebkitgtk",
     ],
-    
-    data_files=[
-        ('bin', [ 'bin/ldfind', 'bin/ldweb' ]),
-        ('bin/locdic', glob.glob("bin/locdic/*.py")),
-        ('bin/locdic/engine', glob.glob("bin/locdic/engine/*.py")),
-        ('bin/locdic/test', glob.glob("bin/locdic/test/*.py")),
-        ('bin/locdic/doc', [ 'bin/locdic/doc/LICENSE', 'bin/locdic/doc/README', 
-                'bin/locdic/doc/INSTALLATION' ]),
-        ('bin/locdic/data', [ "bin/locdic/data/readme", 
-                "bin/locdic/data/import_gene.py", "bin/locdic/data/import_wordnet.py", 
-                "bin/locdic/data/wordnet.utf8" ]),
-        ('bin/locdic/static', glob_wo_dir('bin/locdic/static/*')),
-        ('bin/locdic/static/images', glob_wo_dir('bin/locdic/static/images/*')),
-        ('bin/locdic/view', glob_wo_dir('bin/locdic/view/*')),
-    ],
       
+    packages=[
+        'locdic', 
+        'locdic.engine',
+    ],
+    package_dir={
+        'locdic': 'src/locdic',
+        'locdic.engine': 'src/locdic/engine',
+    },
+    package_data={'locdic': 
+        [
+            'data/import_gene.py', 
+            'data/import_wordnet.py',
+            'data/readme',
+            'data/wordnet.utf8',
+            'doc/INSTALLATION',
+            'doc/LICENSE',
+            'doc/README',
+            'static/*.css',
+            'static/*.js',
+            'static/images/*.png',
+            'view/*.tpl',
+        ]
+    },
+    
     license="MIT license / BSD license",
     classifiers=[
         "Development Status :: 3 - Alpha",
@@ -50,4 +59,4 @@ setup(
         "Topic :: Office/Business",
         "Topic :: Utilities",
     ],
-  )
+)

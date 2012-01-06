@@ -8,7 +8,7 @@ from _config import dataDir, ignoreFiles
 from _config import version
 
 usage = """
-usage: ldfind <word> [OPTIONS...]
+usage: find <word> [OPTIONS...]
   searches word from text files in ./data directory.
 options
   -#: max mismatch count. 
@@ -39,7 +39,7 @@ in ./data directory.)
                 sys.stdout.write("%s\n" % usage)
                 sys.exit(0)
             elif a == "--version":
-                sys.stdout.write("ldfind %s\n" % version)
+                sys.stdout.write("locdic.find %s\nsee http://www.remics.org/locdic/ for more information.\n" % version)
                 sys.exit(0)
             opts.append(a)
         else:

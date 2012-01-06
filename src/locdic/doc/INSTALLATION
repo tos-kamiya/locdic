@@ -1,0 +1,27 @@
+===============
+Installation
+===============
+
+To try Locdic without modifying system directories::
+
+  $ cd where/archive/is/expanded
+  $ python src/locdic/web.py
+
+or::
+  
+  $ python src/locdic/find.py "key word"
+  
+To install into Python dist-package directory, run setup.py::
+
+  $ cd where/archive/is/expanded
+  $ sudo python setup.py install
+
+So you can run Locdic just as follows:: 
+
+  $ python -m locdic.web
+  
+or::
+  
+  $ python -m locdic.find "key word"
+
+Enjoy!
