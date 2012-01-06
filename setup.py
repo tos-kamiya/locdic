@@ -1,8 +1,5 @@
 #coding: utf-8
 
-# This set-up script is a kind of dummy,
-# just checks dependencies and tells descriptions.
-
 from distutils.core import setup
 import glob
 import os
