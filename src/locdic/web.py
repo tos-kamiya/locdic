@@ -4,6 +4,7 @@
 import os
 import time
 import threading
+import cgi
 
 import bottle
 bottleVersion = tuple([int(s) for s in bottle.__version__.split(".")[:2]])
@@ -46,6 +47,20 @@ Put some utf-8 text files in directory "%(dataDir)s".
             option_approximate=initialOptions.get('approximate'), 
             option_ignorecase=initialOptions.get('ignorecase', True))
 
+def marking(line):
+    i = line.find(":")
+    posStr = line[:i]
+    text = line[i + 1:]
+    startPosStr, endPosStr = posStr.split("-")
+    startPos = int(startPosStr, 10)
+    endPos = int(endPosStr, 10)
+    u8Text = text.encode('utf-8')
+    return cgi.escape(u8Text[:startPos].decode('utf-8'), True) + \
+            '<font color="red">' + \
+            cgi.escape(u8Text[startPos:endPos].decode('utf-8'), True) + \
+            '</font>' + \
+            cgi.escape(u8Text[endPos:].decode('utf-8'), True)
+
 @route('/', method='post')
 def index_post():
     query_string = request.forms.get('query', '')
@@ -57,7 +72,7 @@ def index_post():
         return template('index', result_table=tbl, query_string=None,
                 option_wholeword=wholeword, option_approximate=approximate, option_ignorecase=ignorecase)
     
-    options = []
+    options = ["--show-position"]
     if wholeword: options.append("-w")
     if approximate: options.append("-%d" % approximate)
     if ignorecase: options.append("-i")
@@ -65,11 +80,12 @@ def index_post():
     d = searcher.search(query_string, options)
     result_table = {}
     for k, v in d.items():
-        result_table[k.decode('utf-8')] = \
-                [L.decode('utf-8') for L in filter(None, v.split('\n'))]
+        result_table[k] = \
+                [marking(L) for L in filter(None, v.split('\n'))]
     
     return template('index', 
-            result_table=result_table, query_string=query_string, 
+            template_settings={'noescape': True},
+            result_table=result_table, query_string=cgi.escape(query_string, True),
             option_wholeword=wholeword, option_approximate=approximate, option_ignorecase=ignorecase)
 
 usage = """

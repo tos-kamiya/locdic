@@ -15,7 +15,8 @@ options
   -c: counts the matched lines, instead of showing the lines.
   -i: ignores case.
   -w: word match.
-  --version: shows version.
+  --color: shows positions where word appears in each line.
+  --version: shows version. 
 """[1:-1]
 
 def main():

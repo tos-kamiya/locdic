@@ -43,8 +43,7 @@ class Searcher:
             try:
                 r = subprocess.check_output(cmdLine + [p],
                         stderr=subprocess.STDOUT)
-                if sys.version_info.major >= 3:
-                    r = r.decode('utf-8')
+                r = r.decode('utf-8')
                 d[f] = r
             except subprocess.CalledProcessError as e:
                 d[f] = ''
