@@ -94,7 +94,6 @@ def index_post():
 usage = """
 usage: web [OPTIONS...]
 options
-  -b -: don't invoke a browser.
   -I: turns off ignore-case option.
   -p <portnum>: port number. default is %(port)d.
   -s: web server (only) mode. not try to invoke a browser.
@@ -146,24 +145,25 @@ def main():
     if optionMismatch: initialOptions['approximate'] = optionMismatch
     
     bottle.debug(True)
-    
-    serverThread = threading.Thread(target=run, kwargs={ 'host': 'localhost', 'port': port })
-    serverThread.daemon = not optionServerMode # not a daemon if server mode.
-    serverThread.start()
-    time.sleep(0.1) # waits server thread get ready.
-    
-    if not serverThread.is_alive():
-        message = "error: can't invoke a web server. (another locdic/web.py is already running?, or port %d is used by the other program?)\n" % port
-        try:
-            import browserwindow
-            browserwindow.error_dialog(message)
-            sys.exit(1)
-        except:
-            sys.exit(message)
+
+    if optionServerMode:
+        run(host='localhost', port=port)
+    else:    
+        serverThread = threading.Thread(target=run, kwargs={ 'host': 'localhost', 'port': port })
+        serverThread.daemon = not optionServerMode # not a daemon if server mode.
+        serverThread.start()
+        time.sleep(0.1) # waits server thread get ready.
         
-    if not optionServerMode:
+        if not serverThread.is_alive():
+            message = "error: can't invoke a web server. (another locdic/web.py is already running?, or port %d is used by the other program?)\n" % port
+            try:
+                import browserwindow
+                browserwindow.error_dialog(message)
+                sys.exit(1)
+            except:
+                sys.exit(message)
+            
         import browserwindow # this module packages PyGtk and pywebkitgtk (not standard lib, platform depends) so import when it is really needed.
-        
         url = "http://localhost:%d" % port
         browserwindow.start_event_loop(url, title="LocDic", size=(0.33, 0.8))
 
