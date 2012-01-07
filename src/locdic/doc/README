@@ -2,22 +2,20 @@
 Locdic
 ========
 
-1. Locdic is a dictionary application.
+Locdic is a dictionary application / tool.
 
-Locdic is shipped with a English dictionary data, namely
-Wordnet 3.0, so Locdic can be used as a dictionary out 
-of the box.
+- Off-line dictionary. Works fine when you don't have 
+  a connection to network.
+  
+- Customizable. You can develop a new dictionary by
+  adding new dictionary data (as utf-8 text file).
+  See document file data/readme for more information.
 
-`locdic.find` is a command-line dictionary application.
+- Three way use. Command-line interface, GUI, and
+  web server.
 
-`locdic.web` is a GUI dictionary application and also
-works as a web server.
-
-2. Locdic is a dictionary making tool.
-
-Locdic can be customized by adding utf-8 text files as dictionary 
-data. You prepare such text files (e.g., ejdic-hand-utf8 for 
-English-Japanese dictionary), in order to make your own dictionary.
-See `data/readme` for more information.
+This Locdic distribution is shipped with a English 
+dictionary data, namely Wordnet 3.0, so can be used 
+as a dictionary out of the box.
 
 The official site is: http://www.remics.org/locdic/ .
