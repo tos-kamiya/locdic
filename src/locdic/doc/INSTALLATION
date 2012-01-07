@@ -2,6 +2,9 @@
 Installation
 ===============
 
+Install
+---------
+
 To try Locdic without modifying system directories::
 
   $ cd where/archive/is/expanded
@@ -11,12 +14,14 @@ or::
   
   $ python src/locdic/find.py "key word"
   
-To install into Python dist-package directory, run setup.py::
+To install to the system (Python's dist-package directory), 
+run `setup.py install` as usual::
 
   $ cd where/archive/is/expanded
   $ sudo python setup.py install
 
-So you can run Locdic just as follows:: 
+Now Locdic can be used by all users of the system, 
+like as follows:: 
 
   $ python -m locdic.web
   
@@ -25,3 +30,14 @@ or::
   $ python -m locdic.find "key word"
 
 Enjoy!
+
+Un-install
+-------------
+
+Remove locdic-related directories and files in Python's 
+dist-package directory, like::
+
+  $ sudo rm -rf /usr/local/lib/python2.7/dist-packages/locdic*
+
+In case of you are using Python 2.7.
+
