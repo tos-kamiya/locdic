@@ -6,30 +6,20 @@ Prerequisite
 ---------------
 
 Locdic depends on TRE-agrep ( http://laurikari.net/tre/ ) and 
-Bottle ( http://www.bottlepy.org/ ). In Ubuntu, you can install
+Bottle ( http://www.bottlepy.org/ ). Also, pip is a 
+recommended installer for Locdic. In Ubuntu, you can install
 them with apt-get::
 
-  $ sudo apt-get install tre-agrep python-bottle
+  $ sudo apt-get install tre-agrep python-bottle python-pip
 
 Install
 ---------
 
-To try Locdic without modifying system directories::
-
-  $ cd where/archive/is/expanded
-  $ python src/locdic/web.py
-
-or::
+A simple way to install Locdic is::
   
-  $ python src/locdic/find.py "key word"
-  
-To install to the system (Python's dist-package directory), 
-run `setup.py install` as usual::
+  $ sudo pip locdic
 
-  $ cd where/archive/is/expanded
-  $ sudo python setup.py install
-
-Now Locdic can be used by all users of the system, 
+When the above finished successfully, you can use locdic
 like as follows:: 
 
   $ python -m locdic.web
@@ -40,12 +30,22 @@ or::
 
 Enjoy!
 
-Un-install
--------------
+Alternatively, in oder to try Locdic without modifying system 
+directories, download the Locdic archive (such as locdic-0.2.2),
+expand the archive file in some directory, and type the 
+following command in terminal::
 
-Remove locdic-related directories and files in Python's 
-dist-package directory, like::
+  $ cd where/archive/is/expanded
+  $ python src/locdic/web.py
 
-  $ sudo rm -rf /usr/local/lib/python2.7/dist-packages/locdic*
+or::
+  
+  $ python src/locdic/find.py "key word"
+ 
+Uninstall
+------------
 
-In case of you are using Python 2.7.
+To remove locdic from your system, type the following command:
+
+  $ sudo pip uninstall locdic
+  

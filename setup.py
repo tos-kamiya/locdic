@@ -17,10 +17,14 @@ setup(
     author="Toshihiro Kamiya",
     author_email="kamiya@mbj.nifty.com",
     url="http://www.remics.org/locdic/",
-    requires=[
-        "bottle",
-        "PyGtk",
-        "pywebkitgtk",
+    requires=[ 
+        "PyGtk", 
+        "pywebkitgtk" 
+    ],
+    install_requires=[
+        "bottle>=0.9.5",
+        # "PyGtk>=2.22", # this line causes try to install PyGtk from source code (and fails).
+        # "pywebkitgtk>=1.1.8", # this line, too.
     ],
       
     packages=[
