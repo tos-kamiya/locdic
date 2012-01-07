@@ -1,17 +1,19 @@
 #coding: utf-8
 
 from distutils.core import setup
-import glob
-import os
 
-def glob_wo_dir(p):
-    return [f for f in glob.glob(p) if not os.path.isdir(f)]
+def readlines_del1stline_addemptyline(p):
+    with open(p) as f:
+        return [L.rstrip() for L in f.readlines()][1:] + [""]
 
 setup(
     name='locdic',
-    version='0.2.1',
+    version='0.2.2',
     description="Off-line Dictionary / Dictionary Server Tool",
-    long_description=open("src/locdic/doc/README").read(),
+    long_description='\n'.join(["========", "Locdic", "========", ""] + \
+        readlines_del1stline_addemptyline("src/locdic/doc/README") + \
+        readlines_del1stline_addemptyline("src/locdic/doc/INSTALLATION") + \
+        readlines_del1stline_addemptyline("src/locdic/doc/LICENSE")),
     author="Toshihiro Kamiya",
     author_email="kamiya@mbj.nifty.com",
     url="http://www.remics.org/locdic/",

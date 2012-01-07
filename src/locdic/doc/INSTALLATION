@@ -49,4 +49,3 @@ dist-package directory, like::
   $ sudo rm -rf /usr/local/lib/python2.7/dist-packages/locdic*
 
 In case of you are using Python 2.7.
-

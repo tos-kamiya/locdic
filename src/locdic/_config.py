@@ -1,8 +1,14 @@
 #coding: utf-8
 
 import os
+import subprocess
 
-version = "0.2.1"
+try:
+    subprocess.check_output(["tre-agrep", "--help"])
+except OSError:
+    raise ImportError("tre-agrep not found. locdic depends on tre-agrep")
+
+version = "0.2.2"
 moduleDir = os.path.split(__file__)[0]
 ignoreFiles = [ 'readme', '*~', '*.py', '*.pyc', '*.original' ]
 

@@ -2,8 +2,8 @@
 License
 ==========
 
-Locdic
---------
+Locdic license
+-----------------
 
 Locdic is distributed under MIT license.
 
@@ -34,16 +34,16 @@ in Locdic distribution, see the next section.
 
 ---
 
-Libraries
------------
+Libraries license
+--------------------
 
 Locdic distribution includes stuffs of the following library.
 
 - jQuery and jQuery Mobile http://jquery.org/
   (MIT license - http://jquery.org/license )
 
-Dictionary data
-------------------
+Data license
+---------------
 
 Locdic distribution includes the following dictionary data.
 

@@ -16,6 +16,8 @@ options
   -i: ignores case.
   -w: word match.
   --color: shows positions where word appears in each line.
+  --sort-by-column: sorts results by number of column where 
+    the searched word appears.
   --version: shows version. 
 """[1:-1]
 
@@ -33,6 +35,9 @@ No files in ./data directory.
 in ./data directory.)
 """[1:-1])
     
+    optionSortByColumn = None
+    showPositionIsAppeared = False
+    
     opts, args = [], []
     for a in sys.argv[1:]:
         if a.startswith("-"):
@@ -42,14 +47,27 @@ in ./data directory.)
             elif a == "--version":
                 sys.stdout.write("locdic.find %s\nsee http://www.remics.org/locdic/ for more information.\n" % version)
                 sys.exit(0)
-            opts.append(a)
+            elif a == "--sort-by-column":
+                optionSortByColumn = True
+            else:
+                if a == "--show-position":
+                    showPositionIsAppeared = True
+                opts.append(a)
         else:
             args.append(a)
     
     if len(args) >= 2:
-        sys.exit("too many command-line arguments")
+        sys.exit("error: too many command-line arguments")
+        
+    if optionSortByColumn and showPositionIsAppeared:
+        sys.exit("error: options are mutually exclusive: --sort-by-column, --show-position")
     
-    d = searcher.search(args[0], options=(opts if opts else None))
+    if optionSortByColumn:
+        d = searcher.search_raw(args[0], options=opts + ["--show-position"])
+        d = searcher.sort_result_by_column(d, remove_position_str=True)
+        d = searcher.decode_result(d)
+    else:
+        d = searcher.search(args[0], options=opts)
     
     output = sys.stdout
     for f, r in sorted(d.items()):

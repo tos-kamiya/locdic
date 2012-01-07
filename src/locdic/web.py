@@ -7,6 +7,7 @@ import threading
 import cgi
 
 import bottle
+
 bottleVersion = tuple([int(s) for s in bottle.__version__.split(".")[:2]])
 
 from bottle import run, template, TEMPLATE_PATH
@@ -77,7 +78,9 @@ def index_post():
     if approximate: options.append("-%d" % approximate)
     if ignorecase: options.append("-i")
     
-    d = searcher.search(query_string, options)
+    d = searcher.search_raw(query_string, options)
+    d = searcher.sort_result_by_column(d, remove_position_str=False)
+    d = searcher.decode_result(d)
     result_table = {}
     for k, v in d.items():
         result_table[k] = \
