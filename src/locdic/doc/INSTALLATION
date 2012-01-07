@@ -2,6 +2,15 @@
 Installation
 ===============
 
+Prerequisite
+---------------
+
+Locdic depends on TRE-agrep ( http://laurikari.net/tre/ ) and 
+Bottle ( http://www.bottlepy.org/ ). In Ubuntu, you can install
+them with apt-get::
+
+  $ sudo apt-get install tre-agrep python-bottle
+
 Install
 ---------
 

@@ -2,7 +2,7 @@
 
 import os
 
-version = "0.2.0"
+version = "0.2.1"
 moduleDir = os.path.split(__file__)[0]
 ignoreFiles = [ 'readme', '*~', '*.py', '*.pyc', '*.original' ]
 

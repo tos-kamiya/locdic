@@ -9,8 +9,9 @@ def glob_wo_dir(p):
 
 setup(
     name='locdic',
-    version='0.2.0',
+    version='0.2.1',
     description="Off-line Dictionary / Dictionary Server Tool",
+    long_description=open("src/locdic/doc/README").read(),
     author="Toshihiro Kamiya",
     author_email="kamiya@mbj.nifty.com",
     url="http://www.remics.org/locdic/",
