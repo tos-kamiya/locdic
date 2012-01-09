@@ -11,9 +11,9 @@ setup(
     version='0.2.2',
     description="Off-line Dictionary / Dictionary Server Tool",
     long_description='\n'.join(["========", "Locdic", "========", ""] + \
-        readlines_del1stline_addemptyline("src/locdic/doc/README") + \
-        readlines_del1stline_addemptyline("src/locdic/doc/INSTALLATION") + \
-        readlines_del1stline_addemptyline("src/locdic/doc/LICENSE")),
+        readlines_del1stline_addemptyline("doc/README") + \
+        readlines_del1stline_addemptyline("doc/INSTALLATION") + \
+        readlines_del1stline_addemptyline("doc/LICENSE")),
     author="Toshihiro Kamiya",
     author_email="kamiya@mbj.nifty.com",
     url="http://www.remics.org/locdic/",
@@ -41,14 +41,14 @@ setup(
             'data/import_wordnet.py',
             'data/readme',
             'data/wordnet.utf8',
-            'doc/INSTALLATION',
-            'doc/LICENSE',
-            'doc/README',
             'static/*.css',
             'static/*.js',
             'static/images/*.png',
             'view/*.tpl',
-        ]
+            '../../doc/INSTALLATION',
+            '../../doc/LICENSE',
+            '../../doc/README',
+        ],
     },
     
     license="MIT license / BSD license",
