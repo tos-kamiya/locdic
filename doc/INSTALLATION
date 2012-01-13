@@ -31,7 +31,7 @@ or::
 Enjoy!
 
 Alternatively, in oder to try Locdic without modifying system 
-directories, download the Locdic archive (such as locdic-0.2.2),
+directories, download the Locdic archive (such as locdic-0.2.2.tar.gz),
 expand the archive file in some directory, and type the 
 following command in terminal::
 
@@ -45,7 +45,7 @@ or::
 Uninstall
 ------------
 
-To remove locdic from your system, type the following command:
+To remove locdic from your system, type the following command::
 
   $ sudo pip uninstall locdic
   
