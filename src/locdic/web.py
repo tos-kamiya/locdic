@@ -5,6 +5,7 @@ import os
 import time
 import threading
 import cgi
+import datetime
 
 import bottle
 
@@ -14,8 +15,9 @@ from bottle import run, template, TEMPLATE_PATH
 from bottle import route, request, static_file
 
 from engine import Searcher
-from _config import dataDir, ignoreFiles, moduleDir
+from _config import dataDir, ignoreFiles, moduleDir, historyDir
 from _config import version
+from history import *
 
 templateDir = os.path.join(moduleDir, "view")
 TEMPLATE_PATH.append(templateDir)
@@ -23,6 +25,7 @@ TEMPLATE_PATH.append(templateDir)
 searcher = Searcher(dataDir, ignoreFiles)
 
 initialOptions = {}
+optionHistory = None
 
 pathPattern = "<filename:path>" if bottleVersion >= (0, 10) else ":filename#.+#"
 
@@ -62,8 +65,11 @@ def marking(line):
             '</font>' + \
             cgi.escape(u8Text[endPos:].decode('utf-8'), True)
 
+queryOptionSet = set(["-i", "-w"] + ["-%d" % i for i in xrange(0, 10)])
+
 @route('/', method='post')
 def index_post():
+    remote_addr = request.remote_addr
     query_string = request.forms.get('query', '')
     wholeword = request.forms.get('wholeword', 'off') == 'on'
     approximate = int(request.forms.get('approximate', '0'))
@@ -78,6 +84,11 @@ def index_post():
     if approximate: options.append("-%d" % approximate)
     if ignorecase: options.append("-i")
     
+    if optionHistory:
+        d = datetime.datetime.today()
+        add_to_history(query_string, [opt for opt in options if opt in queryOptionSet], 
+                d, remote_addr)
+    
     d = searcher.search_raw(query_string, options)
     d = searcher.sort_result_by_column(d, remove_position_str=False)
     d = searcher.decode_result(d)
@@ -91,6 +102,17 @@ def index_post():
             result_table=result_table, query_string=cgi.escape(query_string, True),
             option_wholeword=wholeword, option_approximate=approximate, option_ignorecase=ignorecase)
 
+dayPattern = "<day:int>" if bottleVersion >= (0, 10) else ":day#[0-9]+"
+
+@route('/history/' + dayPattern)
+def history(day):
+    y = day // 10000
+    m = day % 10000 // 100
+    d = day % 100
+    day = datetime.date(y, m, d)
+    history = get_history_of_day(day)
+    return template('history', date="%04d/%02d/%02d" % (y, m, d), history=history)
+
 usage = """
 usage: web [OPTIONS...]
 options
@@ -98,11 +120,13 @@ options
   -p <portnum>: port number. default is %(port)d.
   -s: web server (only) mode. not try to invoke a browser.
   -w: turns on word-match option.
+  --no-history: do not record querys.
   --version: shows version.
 """[1:-1]
 
 def main():
-    import re
+    global optionHistory
+    
     import sys
     import getopt
     
@@ -111,6 +135,7 @@ def main():
     optionMismatch = None
     optionIgnoreCase = None
     optionWholeWordMatch = None
+    optionHistory = True
     
     args = sys.argv[1:]
     for i, a in enumerate(args):
@@ -119,7 +144,7 @@ def main():
             del a[i]
             break
      
-    opts, args = getopt.gnu_getopt(args, "hiIp:sw", [ "version" ])
+    opts, args = getopt.gnu_getopt(args, "hiIp:sw", [ "version", "no-history" ])
     for k, v in opts:
         if k == "-h":
             sys.stdout.write("%s\n" % (usage % locals()))
@@ -137,6 +162,8 @@ def main():
             optionIgnoreCase = False
         elif k == "-w":
             optionWholeWordMatch = True
+        elif k == "--no-history":
+            optionHistory = False
         else:
             assert False
     

@@ -8,10 +8,10 @@ def readlines_del1stline_addemptyline(p):
 
 setup(
     name='locdic',
-    version='0.2.2',
+    version='0.3.0',
     description="Off-line Dictionary / Dictionary Server Tool",
-    long_description='\n'.join(["========", "Locdic", "========", ""] + \
-        readlines_del1stline_addemptyline("doc/README") + \
+    long_description='\n'.join(["========", "LocDic", "========", ""] + \
+        readlines_del1stline_addemptyline("README.rst") + \
         readlines_del1stline_addemptyline("doc/INSTALLATION") + \
         readlines_del1stline_addemptyline("doc/LICENSE")),
     author="Toshihiro Kamiya",
@@ -47,7 +47,7 @@ setup(
             'view/*.tpl',
             '../../doc/INSTALLATION',
             '../../doc/LICENSE',
-            '../../doc/README',
+            '../../README.rst',
         ],
     },
     

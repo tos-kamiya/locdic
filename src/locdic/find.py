@@ -2,10 +2,13 @@
 #coding: utf-8
 
 import sys
+import datetime
+import os
 
 from engine import Searcher
-from _config import dataDir, ignoreFiles
+from _config import dataDir, ignoreFiles, historyDir
 from _config import version
+from history import *
 
 usage = """
 usage: find <word> [OPTIONS...]
@@ -16,6 +19,7 @@ options
   -i: ignores case.
   -w: word match.
   --color: shows positions where word appears in each line.
+  --no-history: do not record query.
   --sort-by-column: sorts results by number of column where 
     the searched word appears.
   --version: shows version. 
@@ -35,8 +39,10 @@ No files in ./data directory.
 in ./data directory.)
 """[1:-1])
     
+    queryOptionSet = set(["-i", "-w"] + ["-%d" % i for i in xrange(0, 10)])
     optionSortByColumn = None
     showPositionIsAppeared = False
+    optionHistory = True
     
     opts, args = [], []
     for a in sys.argv[1:]:
@@ -49,9 +55,12 @@ in ./data directory.)
                 sys.exit(0)
             elif a == "--sort-by-column":
                 optionSortByColumn = True
+            elif a == "--show-position":
+                showPositionIsAppeared = True
+                opts.append(a)
+            elif a == "--no-history":
+                optionHistory = False
             else:
-                if a == "--show-position":
-                    showPositionIsAppeared = True
                 opts.append(a)
         else:
             args.append(a)
@@ -62,6 +71,11 @@ in ./data directory.)
     if optionSortByColumn and showPositionIsAppeared:
         sys.exit("error: options are mutually exclusive: --sort-by-column, --show-position")
     
+    if optionHistory:
+        d = datetime.datetime.today()
+        add_to_history(args[0], [opt for opt in opts if opt in queryOptionSet], 
+                d, "local")
+        
     if optionSortByColumn:
         d = searcher.search_raw(args[0], options=opts + ["--show-position"])
         d = searcher.sort_result_by_column(d, remove_position_str=True)

@@ -25,6 +25,6 @@ See INSTALLATION to install or use Locdic.
 
 The official site is: http://www.remics.org/locdic/ .
 
-The distribution site is: http://pypi.python.org/pypi/locdic/ .
+Recommended version is distributed at: http://pypi.python.org/pypi/locdic/ .
 
 The development repository is: https://github.com/tos-kamiya/locdic/ .
