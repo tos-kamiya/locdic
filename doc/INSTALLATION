@@ -10,14 +10,14 @@ Bottle ( http://www.bottlepy.org/ ). Also, pip is a
 recommended installer for Locdic. In Ubuntu, you can install
 them with apt-get::
 
-  $ sudo apt-get install tre-agrep python-bottle python-pip
+  $ sudo apt-get install tre-agrep python-bottle python-pip python-webkit
 
 Install
 ---------
 
 A simple way to install Locdic is::
   
-  $ sudo pip locdic
+  $ sudo pip install locdic
 
 When the above finished successfully, you can use locdic
 like as follows:: 
